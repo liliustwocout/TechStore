@@ -2,7 +2,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Product } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Always use process.env.API_KEY directly when initializing as per SDK guidelines
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getAIRecommendations = async (userQuery: string, currentCart?: string[]): Promise<string> => {
   try {
@@ -18,6 +19,7 @@ export const getAIRecommendations = async (userQuery: string, currentCart?: stri
         }]
       }]
     });
+    // Accessing .text property directly as per GenerateContentResponse guidelines
     return response.text || "Xin lỗi, tôi không thể đưa ra gợi ý lúc này.";
   } catch (error) {
     console.error("AI Recommendation Error:", error);
@@ -35,6 +37,7 @@ export const analyzeProductSpec = async (productName: string): Promise<string> =
         }]
       }]
     });
+    // Accessing .text property directly as per GenerateContentResponse guidelines
     return response.text || "";
   } catch (error) {
     return "Không có dữ liệu phân tích.";
